@@ -129,7 +129,7 @@ export default async function HomePage({
       </FullBleed>
 
       <FullBleed>
-        <main className="relative overflow-hidden bg-[#020713] text-white">
+        <div className="relative overflow-hidden bg-[#020713] text-white">
           <div
             className="pointer-events-none absolute inset-0 opacity-60"
             style={{
@@ -187,7 +187,7 @@ export default async function HomePage({
             </div>
           </section>
 
-          <section className="relative border-y border-white/8 bg-white/[0.018]">
+          <section className="relative border-y border-white/[0.08] bg-white/[0.018]">
             <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-32">
               <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
                 <div>
@@ -242,7 +242,7 @@ export default async function HomePage({
             </div>
           </section>
 
-          <section className="relative border-y border-white/8 bg-[#050a17]">
+          <section className="relative border-y border-white/[0.08] bg-[#050a17]">
             <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-28">
               <div className="max-w-3xl">
                 <Eyebrow>{en ? 'Authority & community' : 'Autoridade & comunidade'}</Eyebrow>
@@ -339,7 +339,7 @@ export default async function HomePage({
               </div>
             </div>
           </section>
-        </main>
+        </div>
       </FullBleed>
     </div>
   );
@@ -439,7 +439,7 @@ function AuthorityMetric({
   detail: string;
 }) {
   return (
-    <div className="px-0 py-7 md:px-7 md:py-9 first:md:pl-0 last:md:pr-0">
+    <div className="px-0 py-7 md:px-7 md:py-9 md:first:pl-0 md:last:pr-0">
       <strong className="block font-syne text-4xl font-bold tracking-[-0.04em] text-white sm:text-5xl">{value}</strong>
       <span className="mt-2 block text-sm font-semibold text-sky-300">{label}</span>
       <span className="mt-3 block text-sm leading-6 text-slate-500">{detail}</span>
