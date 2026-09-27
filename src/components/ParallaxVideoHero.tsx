@@ -89,7 +89,7 @@ export default function ParallaxVideoHero({photoSrc}: Props) {
     {Icon:Briefcase, value:en ? '5+ years' : '5+ anos', detail:en ? 'enterprise solutions' : 'soluções enterprise'},
     {Icon:ShieldCheck, value:en ? '8 certifications' : '8 certificações', detail:'Microsoft'},
     {Icon:Article, value:en ? '17 articles' : '17 artigos', detail:en ? 'published' : 'publicados'},
-    {Icon:Users, value:en ? 'Community' : 'Comunidade', detail:en ? 'Newsletter & talks' : 'Newsletter & palestras'},
+    {Icon:Users, value:'714', detail:en ? 'newsletter subscribers' : 'assinantes na newsletter'},
   ];
 
   return (
@@ -132,7 +132,7 @@ export default function ParallaxVideoHero({photoSrc}: Props) {
                   <Icon size={32} weight="duotone" aria-hidden="true" /><span>{label}</span>
                 </div>
               ))}
-              <div className="tech-speaker"><Microphone size={23} aria-hidden="true" /><span>{en ? 'Speaker' : 'Palestrante'}<span className="tech-speaker-separator"> · </span>Microsoft Reactor</span></div>
+              <div className="tech-speaker"><Microphone size={23} aria-hidden="true" /><span>{en ? 'Speaker · 2 Microsoft events' : 'Palestrante · 2 eventos Microsoft'}</span></div>
             </div>
             <p className="tech-signature">{en ? 'Technology. Real impact.' : 'Tecnologia que gera impacto real.'}</p>
           </div>
@@ -141,7 +141,7 @@ export default function ParallaxVideoHero({photoSrc}: Props) {
           {stats.map(({Icon, value, detail}) => <div className="tech-stat" key={value}><Icon size={42} weight="light" aria-hidden="true" /><div><strong>{value}</strong><span>{detail}</span></div></div>)}
         </div>
         <div className="tech-hero-bottom">
-          <a href="#about" className="tech-discover">{en ? 'Discover my work' : 'Conheça minha trajetória'}<ArrowRight size={16} aria-hidden="true" /></a>
+          <a href="#expertise" className="tech-discover">{en ? 'Explore how I build' : 'Conheça como eu construo'}<ArrowRight size={16} aria-hidden="true" /></a>
           <button type="button" className="tech-motion-toggle" onClick={() => setPaused(!paused)} aria-pressed={paused}>
             {paused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
             {paused ? (en ? 'Resume animations' : 'Ativar animações') : (en ? 'Pause animations' : 'Pausar animações')}
