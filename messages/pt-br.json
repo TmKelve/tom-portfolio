@@ -1,0 +1,134 @@
+
+{
+  "Nav": {
+  "projects": "Projetos",
+  "labs": "Labs",
+  "certifications": "Certificações",
+  "career": "Carreira",
+  "about": "Sobre",
+  "contact": "Contato"
+  } ,
+  "Home": {
+    "kicker": "Arquiteto de Soluções | Azure + Power Platform + Data | Integração Enterprise",
+    "name": "TOM KELVE S. DE MEDEIROS",
+    "headline": "Arquitetura que escala. Automação que destrava o fluxo. Dados que viram decisão. Entrega confiável em produção.",
+    "headline2": "Desenho e implemento soluções corporativas em Azure e Power Platform (Apps, Automação, Analytics, Copilot, agentes e IA aplicada), conectando canais, dados e serviços via APIs (API-first) e arquitetura event-driven, com governança e observabilidade ponta a ponta.",
+    "aiStack": "Power Apps • Power Automate • Power BI • Power Pages • Copilot Studio • Dataverse • Service Bus • AKS • API Gateway • CI/CD • IaC • Observability",
+    "subtitle": "Mais de 5 anos levando iniciativas críticas do discovery (C4/L0–L4) ao go-live, elevando segurança, previsibilidade e performance operacional.",
+
+    "b1": "Power Apps + Dataverse: apps corporativos (Canvas/Model Driven), regras de negócio, ALM/CI-CD e governança (CoE/DLP/ambientes).",
+    "b2": "Power Automate + Copilot Studio: automações, aprovações, integrações e Copilot e agentes conectados ao ecossistema.",
+    "b3": "Power BI + Data: modelagem, DAX, performance e camadas semânticas para decisão.",
+    "b4": "Event-driven & Integração (Azure): Service Bus + APIs, mensageria, idempotência, retries e DLQ para resiliência.",
+    "b5": "Plataforma (Azure): AKS, IaC, observabilidade (logs/métricas/tracing) e monitoramento para operação estável.",
+
+    "ctaProjects": "Ver casos e projetos",
+    "ctaContact": "Vamos conversar",
+
+    "statsYears": "5+ anos em produção",
+    "statsCerts": "8 certificações Microsoft",
+    "statsArticles": "17 artigos publicados",
+    "statsTalks": "Newsletter & palestras",
+
+    "aboutTitle": "Quem eu sou",
+
+    "aboutIntro1": "Sou Tom Kelve, Arquiteto de Soluções Sênior e desenvolvedor hands-on, com mais de 5 anos de experiência entregando soluções enterprise em Power Platform e Azure, integrando Dynamics 365 e sistemas corporativos críticos.",
+    "aboutIntro2": "Atuo ponta a ponta, do discovery e blueprint arquitetural (C4/L0–L4) até implementação em produção, integração, observabilidade e melhoria contínua. Tenho forte atuação em Power Apps (Canvas e Model-driven) e Dataverse, orquestrando processos com Power Automate, criando experiências externas com Power Pages e desenvolvendo analytics com Power BI. Em Azure, desenho arquiteturas API-first e event-driven com Service Bus, Functions, Logic Apps, Event Grid e API Management/APISIX, aplicando idempotência, retry/backoff, DLQ e tracing ponta a ponta. Também atuo com IA aplicada usando Copilot, Azure OpenAI, AI Builder e Azure AI Foundry.",
+    "aboutStack": "Stack: Power Apps (Canvas + Model-driven), Power Automate, Power Pages, Power BI, Dataverse, Dynamics 365 e Azure (Functions, Service Bus, Event Grid, Logic Apps, AKS, APISIX/APIM).",
+
+    "logoStripTitle": "Empresas atendidas via consultorias",
+    "logoStripSubtitle": "Atuação em ambientes enterprise e operações críticas, cruzando indústria, energia, varejo, logística e financeiro/saúde.",
+
+    "aboutSpecTitle": "No que eu sou especialista",
+    "aboutS1Title": "Power Apps (Canvas & Model-driven)",
+    "aboutS1Desc": "Apps escaláveis com Dataverse, componentes reutilizáveis, UX orientada a processo, regras de negócio e performance.",
+    "aboutS2Title": "Power Automate & Integrações",
+    "aboutS2Desc": "Cloud flows, approvals e orquestração de processos; integração com APIs, webhooks, Service Bus e conectores corporativos.",
+    "aboutS3Title": "Power Pages & Portais",
+    "aboutS3Desc": "Experiências externas com autenticação, perfis/roles, formulários, permissões no Dataverse e padrões de segurança.",
+    "aboutS4Title": "Power BI & Analytics",
+    "aboutS4Desc": "Modelagem, DAX, RLS, performance e dashboards executivos orientados a decisão e operação.",
+    "aboutS5Title": "Azure: APIs, Mensageria & Eventos",
+    "aboutS5Desc": "APISIX/APIM, Azure Functions, Event Grid, Logic Apps e Service Bus para integrações resilientes e escaláveis.",
+    "aboutS6Title": "Governança, ALM & Confiabilidade",
+    "aboutS6Desc": "CoE/guardrails, ambientes, DLP, CI/CD, idempotência, DLQ, observabilidade, SLOs e operação previsível.",
+
+    "aboutWorkTitle": "Como eu trabalho",
+    "aboutWorkFlow": "Blueprint (C4/L0–L4) → Implementação → Observabilidade/Operação → Otimização contínua.",
+
+    "aboutBody": "Sou Tom Kelve, Azure & Power Platform Solution Architect e hands-on developer, com mais de 5 anos de experiência em Power Platform, Azure, Dynamics 365, integração enterprise, dados, automação e IA aplicada.",
+    "aboutBody2": "Atuo do discovery e blueprint arquitetural até implementação, integração, observabilidade, otimização contínua e padronização técnica, com foco em governança, segurança, performance e previsibilidade operacional.",
+
+    "diffTitle": "Diferenciais",
+    "diff1Title": "Arquitetura + execução",
+    "diff1Desc": "Saio do blueprint e chego na produção. Desenho, implemento e opero soluções com padrões reais de performance, segurança e observabilidade.",
+    "diff2Title": "Integração enterprise",
+    "diff2Desc": "API-first e event-driven de verdade. Contratos claros, versionamento, rastreabilidade ponta a ponta e mensageria bem governada.",
+    "diff3Title": "Resiliência e previsibilidade",
+    "diff3Desc": "Confiabilidade como requisito, não “extra”. Idempotência, retry/backoff, DLQ, reprocessamento controlado e desenho para falhas.",
+    "diff4Title": "Governança & ALM",
+    "diff4Desc": "Ambientes sob controle, mudanças sem susto. Pipelines, padrões, gestão de ambientes e qualidade para evoluir com segurança.",
+    "diff5Title": "Data, BI & Analytics",
+    "diff5Desc": "Dados que viram decisão. Modelagem, performance e insights com Power BI e Fabric, conectando ingestão → camada semântica → consumo.",
+    "diff6Title": "IA aplicada com governança",
+    "diff6Desc": "Copilots com limites e valor. Segurança, políticas, rastreabilidade e automações inteligentes com Copilot, Azure OpenAI e AI Builder.",
+
+    "certsTitle": "Certificações Microsoft (destaques)",
+    "certsNote": "Seleção das certificações. (Total: 8 certificações Microsoft)",
+    "certFeb2023": "fev de 2023",
+
+    "featuredTitle": "Destaques",
+    "featuredDesc": "Projetos e labs que mostram meu estilo de engenharia e tomada de decisão.",
+
+    "ctaBlockTitle": "Quer conversar sobre um projeto?",
+    "ctaBlockDesc": "Posso detalhar trade-offs e decisões técnicas em conversa privada (NDA quando necessário).",
+    "ctaBlockButton": "Abrir contato",
+    "certSep2022": "set de 2022",
+    "certOct2022": "out de 2022"
+  },
+  "Pages": {
+    "projectsTitle": "Projetos",
+    "labsTitle": "Labs & Open Source",
+    "platformTitle": "Power Platform, Power BI/Fabric e Foundry",
+    "aboutTitle": "Sobre",
+    "contactTitle": "Contato"
+  },
+  
+  "ProjectsPage": {
+    "kicker": "Portfólio",
+    "title": "Projetos",
+    "subtitle": "Cases e Labs com foco em arquitetura, integração enterprise, automação e escalabilidade.",
+    "hint": "Dica: filtre por tags e tipo para achar o que você quer em segundos.",
+    "ctaTitle": "Quer aprofundar em um case específico?",
+    "ctaSubtitle": "Posso abrir a arquitetura L0–L4, decisões técnicas e trade-offs (respeitando NDA).",
+    "ctaButton": "Falar comigo"
+  },
+  "Contact": {
+    "title": "Vamos conversar",
+    "subtitle": "Me chame por onde for mais rápido para você. Respondo com foco, clareza e sem enrolação.",
+    "note": "Se quiser, já me diga: contexto, objetivo e prazo. Eu devolvo um caminho técnico e os próximos passos.",
+    "labels": {
+      "whatsapp": "WhatsApp",
+      "email": "Email"
+    },
+    "whatsapp": {
+      "title": "WhatsApp",
+      "desc": "Mensagem direta para alinharmos o contexto e o melhor caminho.",
+      "cta": "Abrir conversa",
+      "prefill": "Olá Tom! Vi seu portfólio e gostaria de falar sobre uma oportunidade/projeto. Podemos conversar?"
+    },
+    "email": {
+      "title": "Email",
+      "desc": "Melhor para detalhes, escopo e links (RFP, docs, etc.).",
+      "cta": "Enviar email",
+      "subject": "Contato via portfólio",
+      "body": "Olá Tom!\n\nVi seu portfólio e gostaria de conversar.\n\nContexto:\nObjetivo:\nPrazo:\n\nObrigado(a)!"
+    },
+    "linkedin": {
+      "title": "LinkedIn",
+      "desc": "Conexão profissional e mensagens por lá também funcionam bem.",
+      "cta": "Ver perfil"
+    }
+  }
+
+}

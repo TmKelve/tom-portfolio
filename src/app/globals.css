@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+/* =========================================================
+   Base theme tokens
+   ========================================================= */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Design system accent tokens */
+  --accent-sky: #0ea5e9;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-violet: #8b5cf6;
+
+  /* Safe-area (iOS) */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Syne display font utility */
+.font-syne {
+  font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* =========================================================
+   Global base
+   ========================================================= */
+html {
+  color-scheme: light dark;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+
+  /* Deixa o texto mais “premium” em telas comuns */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================================
+   Utilities
+   ========================================================= */
+
+/* Hide scrollbar (carousel) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 28s linear infinite;
+  }
+
+  /* “fade” nas bordas para ficar elegante */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  /* Útil para botões flutuantes (WhatsApp) em iPhone com notch */
+  .safe-fab {
+    bottom: calc(1.5rem + var(--safe-bottom));
+    right: calc(1.5rem + var(--safe-right));
+  }
+}
+
+/* =========================================================
+   Force white text inside the dark (video) section
+   Use with: <div className="... force-white-text">
+   ========================================================= */
+.force-white-text,
+.force-white-text * {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Se algum componente usar fill/stroke (ícones SVG) */
+.force-white-text svg,
+.force-white-text svg * {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Placeholders (caso tenha input no newsletter) */
+.force-white-text input::placeholder,
+.force-white-text textarea::placeholder {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Links e states comuns */
+.force-white-text a {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+.force-white-text a:hover {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* =========================================================
+   Neon headline effect (opcional)
+   ========================================================= */
+.neon {
+  color: #fff;
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.75),
+    0 0 16px rgba(59, 130, 246, 0.55),
+    0 0 34px rgba(59, 130, 246, 0.35);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .neon {
+    transition: filter 200ms ease, text-shadow 200ms ease;
+  }
+
+  a:hover .neon {
+    text-shadow:
+      0 0 8px rgba(255, 255, 255, 0.9),
+      0 0 22px rgba(59, 130, 246, 0.7),
+      0 0 44px rgba(59, 130, 246, 0.45);
+  }
+}
+
+/* =========================================================
+   Accent color overrides inside force-white-text
+   (Higher specificity !important beats the universal * rule)
+   ========================================================= */
+.force-white-text .kicker-accent {
+  color: var(--accent-sky) !important;
+}
+
+.force-white-text .number-accent {
+  color: var(--accent-amber) !important;
+}
+
+.force-white-text .number-bg-accent {
+  color: rgba(245, 158, 11, 0.13) !important;
+}
+
+/* =========================================================
+   New animation utilities
+   ========================================================= */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-pulse-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease both;
+  }
+
+  .animate-fade-in-up-1 { animation: fade-in-up 0.6s 0.1s ease both; }
+  .animate-fade-in-up-2 { animation: fade-in-up 0.6s 0.2s ease both; }
+  .animate-fade-in-up-3 { animation: fade-in-up 0.6s 0.3s ease both; }
+}
