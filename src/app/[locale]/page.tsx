@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type {Metadata} from 'next';
+import type {ReactNode} from 'react';
 import {setRequestLocale} from 'next-intl/server';
 
 import {Link} from '@/i18n/navigation';
@@ -344,7 +345,7 @@ export default async function HomePage({
   );
 }
 
-function Eyebrow({children}: {children: React.ReactNode}) {
+function Eyebrow({children}: {children: ReactNode}) {
   return (
     <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-sky-400">
       {children}
@@ -458,7 +459,7 @@ function FullBleed({
   children,
   className = '',
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) {
   return (
