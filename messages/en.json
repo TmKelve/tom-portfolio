@@ -1,12 +1,13 @@
-
 {
   "Nav": {
-  "projects": "Projects",
-  "labs": "Labs",
-  "certifications": "Certifications",
-  "career": "Career",
-  "about": "About",
-  "contact": "Contact"
+    "projects": "Projects",
+    "labs": "Labs",
+    "certifications": "Certifications",
+    "career": "Career",
+    "about": "About",
+    "contact": "Contact",
+    "expertise": "Expertise",
+    "content": "Content"
   },
   "Home": {
     "kicker": "Solution Architect | Azure + Power Platform + Data | Enterprise Integration",
@@ -15,30 +16,23 @@
     "headline2": "I design and deliver enterprise solutions on Azure and Power Platform (Apps, Automation, Analytics, Copilot, agents, and applied AI), connecting channels, data, and services through APIs (API-first) and event-driven architecture, with end-to-end governance and observability.",
     "aiStack": "Power Apps • Power Automate • Power BI • Power Pages • Copilot Studio • Dataverse • Service Bus • AKS • API Gateway • CI/CD • IaC • Observability",
     "subtitle": "Over 5 years taking critical initiatives from discovery (C4/L0–L4) to go-live, increasing security, predictability, and operational performance.",
-
     "b1": "Power Apps + Dataverse: enterprise apps (Canvas/Model-driven), business rules, ALM/CI-CD, and governance (CoE/DLP/environments).",
     "b2": "Power Automate + Copilot Studio: automations, approvals, integrations, and Copilot/agents connected across the ecosystem.",
     "b3": "Power BI + Data: modeling, DAX, performance tuning, and semantic layers for decision-making.",
     "b4": "Event-driven & Integration (Azure): Service Bus + APIs, messaging, idempotency, retries, and DLQ for resilience.",
     "b5": "Platform (Azure): AKS, IaC, observability (logs/metrics/tracing), and monitoring for stable operations.",
-
     "ctaProjects": "View cases and projects",
     "ctaContact": "Let’s talk",
-
     "statsYears": "5+ years in production",
     "statsCerts": "8 Microsoft certifications",
     "statsArticles": "17 published articles",
     "statsTalks": "Newsletter & talks",
-
     "aboutTitle": "About me",
-
     "aboutIntro1": "I’m Tom Kelve, a Senior Solution Architect and hands-on developer with 5+ years delivering enterprise solutions in Power Platform and Azure, integrating Dynamics 365 and critical corporate systems.",
     "aboutIntro2": "I work end-to-end, from discovery and architectural blueprint (C4/L0–L4) to production delivery, integration, observability and continuous improvement. Strong experience with Power Apps (Canvas and Model-driven) and Dataverse, orchestrating processes with Power Automate, building external experiences with Power Pages and delivering analytics with Power BI. On Azure, I design API-first and event-driven architectures using Service Bus, Functions, Logic Apps, Event Grid and API Management/APISIX, applying idempotency, retry/backoff, DLQ and end-to-end tracing. I also work with applied AI using Copilot, Azure OpenAI, AI Builder and Azure AI Foundry.",
     "aboutStack": "Stack: Power Apps (Canvas + Model-driven), Power Automate, Power Pages, Power BI, Dataverse, Dynamics 365 and Azure (Functions, Service Bus, Event Grid, Logic Apps, AKS, APISIX/APIM).",
-
     "logoStripTitle": "Companies delivered via consulting",
     "logoStripSubtitle": "Experience in enterprise environments and critical operations across industry, energy, retail, logistics and finance/healthcare.",
-
     "aboutSpecTitle": "What I specialize in",
     "aboutS1Title": "Power Apps (Canvas & Model-driven)",
     "aboutS1Desc": "Scalable apps with Dataverse, reusable components, process-driven UX, business rules and performance.",
@@ -52,13 +46,10 @@
     "aboutS5Desc": "APISIX/APIM, Azure Functions, Event Grid, Logic Apps and Service Bus for resilient, scalable integrations.",
     "aboutS6Title": "Governance, ALM & Reliability",
     "aboutS6Desc": "CoE/guardrails, environments, DLP, CI/CD, idempotency, DLQ, observability, SLOs and predictable operations.",
-
     "aboutWorkTitle": "How I work",
     "aboutWorkFlow": "Blueprint (C4/L0–L4) → Implementation → Observability/Operations → Continuous optimization.",
-
     "aboutBody": "I’m Tom Kelve, an Azure & Power Platform Solution Architect and hands-on developer with 5+ years of experience in Power Platform, Azure, Dynamics 365, enterprise integration, data, automation and applied AI.",
     "aboutBody2": "I cover discovery and architectural blueprint through implementation, integration, observability, continuous optimization and technical standardization, focusing on governance, security, performance and operational predictability.",
-
     "diffTitle": "Differentiators",
     "diff1Title": "Architecture + execution",
     "diff1Desc": "From blueprint to production. I design, implement and operate solutions with real-world performance, security and observability standards.",
@@ -72,19 +63,16 @@
     "diff5Desc": "Data into decisions. Modeling, performance and insights with Power BI and Fabric, connecting ingestion → semantic layer → consumption.",
     "diff6Title": "Applied AI with governance",
     "diff6Desc": "Copilots with limits and value. Security, policies, traceability and intelligent automations with Copilot, Azure OpenAI and AI Builder.",
-
     "certsTitle": "Microsoft Certifications (highlights)",
     "certsNote": "Selected certifications. (Total: 8 Microsoft certifications)",
     "certFeb2023": "Feb 2023",
-
     "featuredTitle": "Highlights",
     "featuredDesc": "Projects and labs that show my engineering style and decision-making.",
-
     "ctaBlockTitle": "Want to talk about a project?",
     "ctaBlockDesc": "I can detail trade-offs and technical decisions in a private conversation (NDA when needed).",
     "ctaBlockButton": "Open contact",
     "certSep2022": "Sep 2022",
-   "certOct2022": "Oct 2022"
+    "certOct2022": "Oct 2022"
   },
   "Pages": {
     "projectsTitle": "Projects",
@@ -102,7 +90,6 @@
     "ctaSubtitle": "I can walk through L0–L4 architecture, technical decisions, and trade-offs (respecting NDA).",
     "ctaButton": "Contact me"
   },
-
   "Contact": {
     "title": "Let’s talk",
     "subtitle": "Reach out via whichever channel is fastest for you. I’ll reply with clarity and practical next steps.",
@@ -129,5 +116,5 @@
       "desc": "Professional connection and messages there work great too.",
       "cta": "View profile"
     }
-    }
+  }
 }
