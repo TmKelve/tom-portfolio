@@ -1,7 +1,13 @@
 import Image from 'next/image';
-import {setRequestLocale} from 'next-intl/server';
-import {getTranslations} from 'next-intl/server';
 import type {Metadata} from 'next';
+import type {ReactNode} from 'react';
+import {setRequestLocale} from 'next-intl/server';
+
+import {Link} from '@/i18n/navigation';
+import ParallaxVideoHero from '@/components/ParallaxVideoHero';
+import ScrollReveal from '@/components/ScrollReveal';
+import {projects, type Project} from '@/content/projects';
+import {newsletters, newsletterCoverImage} from '@/content/newsletters';
 
 export async function generateMetadata({
   params,
@@ -10,96 +16,29 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const {locale} = await params;
   const isEn = locale === 'en';
+
   return {
     title: isEn
       ? 'Azure & Power Platform Architect'
       : 'Arquiteto Azure & Power Platform',
     description: isEn
-      ? 'Azure & Power Platform Solution Architect — enterprise integration, AI/Automation, governance and scalability.'
-      : 'Arquiteto de Soluções Azure & Power Platform — integração enterprise, AI/Automation, governança e escalabilidade.',
+      ? 'Azure & Power Platform Solution Architect focused on enterprise integration, AI, automation, data and scalable cloud architecture.'
+      : 'Arquiteto de Soluções Azure & Power Platform com foco em integração enterprise, IA, automação, dados e arquitetura cloud escalável.',
     alternates: {
-      canonical: `https://tomkelve.com/${locale}`,
-      languages: {'pt-BR': '/pt-br', 'en': '/en'},
+      canonical: 'https://tomkelve.com/' + locale,
+      languages: {'pt-BR': '/pt-br', en: '/en'},
     },
   };
 }
 
-import {Link} from '@/i18n/navigation';
-import ParallaxSectionVideo from '@/components/ParallaxSectionVideo';
-import {projects} from '@/content/projects';
-import ProjectCard from '@/components/ProjectCard';
-import ParallaxVideoHero from '@/components/ParallaxVideoHero';
-import CertificationCard, {Certification} from '@/components/CertificationCard';
-import CompanyLogoMarquee from '@/components/CompanyLogoMarquee';
-import NewsletterCarousel from '@/components/NewsletterCarousel';
-import {newsletters, newsletterCoverImage} from '@/content/newsletters';
-import CareerCarousel from '@/components/CareerCarousel';
-import {career} from '@/content/career';
-
-/* ── SVG Icons for DarkCards ── */
-function IconBlueprintExec() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} className="h-5 w-5" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z" />
-    </svg>
-  );
-}
-function IconEnterprise() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} className="h-5 w-5" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-    </svg>
-  );
-}
-function IconResilience() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} className="h-5 w-5" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
-    </svg>
-  );
-}
-function IconGovernance() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} className="h-5 w-5" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
-    </svg>
-  );
-}
-function IconData() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} className="h-5 w-5" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
-    </svg>
-  );
-}
-function IconAI() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} className="h-5 w-5" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />
-    </svg>
-  );
-}
-function IconArrowRight() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="h-4 w-4" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-    </svg>
-  );
-}
-
-/* ── Dark card icon map ── */
-const darkCardIcons = [IconBlueprintExec, IconEnterprise, IconResilience, IconGovernance, IconData, IconAI];
-const darkCardColors = [
-  { bg: 'bg-sky-500/15',     ring: 'ring-sky-400/35'     },
-  { bg: 'bg-violet-500/15',  ring: 'ring-violet-400/35'  },
-  { bg: 'bg-emerald-500/15', ring: 'ring-emerald-400/35' },
-  { bg: 'bg-amber-500/15',   ring: 'ring-amber-400/35'   },
-  { bg: 'bg-rose-500/15',    ring: 'ring-rose-400/35'    },
-  { bg: 'bg-cyan-500/15',    ring: 'ring-cyan-400/35'    },
+const featuredSlugs = [
+  'd365-fo-order-to-cash-integration',
+  'd365-masterdata-product-price-inventory-platform',
+  'powerbi-semantic-core-governance-metrics-factory',
 ];
 
 export default async function HomePage({
-  params
+  params,
 }: {
   params: Promise<{locale: string}>;
 }) {
@@ -107,380 +46,441 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   const safeLocale = (locale === 'en' ? 'en' : 'pt-br') as 'pt-br' | 'en';
-  const t = await getTranslations('Home');
+  const en = safeLocale === 'en';
 
-  const featured = projects
-    .filter((p) => (p.status ?? 'public') === 'public')
+  const featured = featuredSlugs
+    .map((slug) => projects.find((project) => project.slug === slug))
+    .filter((project): project is Project => Boolean(project))
     .slice(0, 3);
 
-  const certs: Certification[] = [
-    {title: 'Microsoft Certified: Power Platform Fundamentals (PL-900)', issued: t('certSep2022'), code: 'I410-9001'},
-    {title: 'Microsoft Certified: Azure Developer Associate (AZ-204)', issued: t('certOct2022')},
-    {title: 'Microsoft Certified: Power Platform App Maker Associate (PL-100)', issued: t('certOct2022')},
-    {title: 'Microsoft Certified: Power Platform Functional Consultant Associate (PL-200)', issued: t('certFeb2023')},
-    {title: 'Microsoft Certified: Power BI Data Analyst Associate (PL-300)', issued: t('certFeb2023'), code: 'I608-0687'},
-    {title: 'Microsoft Certified: Power Platform Developer Associate (PL-400)', issued: t('certFeb2023')},
-    {title: 'Microsoft Certified: Power Platform Solution Architect Expert (PL-600)', issued: t('certFeb2023')},
-    {title: 'Microsoft Certified: Azure Data Engineer Associate (DP-203)', issued: t('certFeb2023'), skills: 'Azure'}
-  ];
+  const recentContent = [...newsletters].reverse().slice(0, 3);
 
-  const newsletterItems = [...newsletters].reverse();
+  const pillars = en
+    ? [
+        {
+          number: '01',
+          title: 'Apps & Automation',
+          description: 'Business applications, workflows and governed automation that remove friction from critical operations.',
+          tags: ['Power Apps', 'Dataverse', 'Power Automate'],
+        },
+        {
+          number: '02',
+          title: 'AI & Agents',
+          description: 'Enterprise copilots and agents connected to real processes, data and tools with guardrails and observability.',
+          tags: ['Copilot Studio', 'Azure OpenAI', 'AI Foundry'],
+        },
+        {
+          number: '03',
+          title: 'Data & Analytics',
+          description: 'Semantic models and data products that turn fragmented information into trusted operational decisions.',
+          tags: ['Power BI', 'Fabric', 'Semantic Models'],
+        },
+        {
+          number: '04',
+          title: 'Cloud & Integration',
+          description: 'API-first and event-driven architectures built for resilience, traceability and production scale.',
+          tags: ['Azure', 'Service Bus', 'APISIX / APIM'],
+        },
+      ]
+    : [
+        {
+          number: '01',
+          title: 'Apps & Automação',
+          description: 'Aplicações corporativas, fluxos e automações governadas que retiram atrito de operações críticas.',
+          tags: ['Power Apps', 'Dataverse', 'Power Automate'],
+        },
+        {
+          number: '02',
+          title: 'IA & Agentes',
+          description: 'Copilots e agentes enterprise conectados a processos, dados e ferramentas reais, com guardrails e observabilidade.',
+          tags: ['Copilot Studio', 'Azure OpenAI', 'AI Foundry'],
+        },
+        {
+          number: '03',
+          title: 'Dados & Analytics',
+          description: 'Modelos semânticos e produtos de dados que transformam informação fragmentada em decisão confiável.',
+          tags: ['Power BI', 'Fabric', 'Modelos Semânticos'],
+        },
+        {
+          number: '04',
+          title: 'Cloud & Integração',
+          description: 'Arquiteturas API-first e event-driven desenhadas para resiliência, rastreabilidade e escala em produção.',
+          tags: ['Azure', 'Service Bus', 'APISIX / APIM'],
+        },
+      ];
 
-  type CareerCarouselItem = Omit<(typeof career)[number], 'highlights'> & {
-    highlights: Record<'pt-br' | 'en', string[]>;
-  };
-  const careerHomeItems: CareerCarouselItem[] = career
-    .slice(0, 3)
-    .map((it) => ({ ...it, highlights: it.highlights.short }));
+  const method = en
+    ? [
+        ['01', 'Blueprint', 'Context, constraints and architecture from L0 to L4.'],
+        ['02', 'Implementation', 'Hands-on delivery with clear contracts and engineering standards.'],
+        ['03', 'Operations', 'Observability, reliability, SLOs and controlled failure paths.'],
+        ['04', 'Evolution', 'Measure, simplify, optimize and scale what proved valuable.'],
+      ]
+    : [
+        ['01', 'Blueprint', 'Contexto, restrições e arquitetura do L0 ao L4.'],
+        ['02', 'Implementação', 'Entrega hands-on com contratos claros e padrões de engenharia.'],
+        ['03', 'Operação', 'Observabilidade, confiabilidade, SLOs e falhas controladas.'],
+        ['04', 'Evolução', 'Medir, simplificar, otimizar e escalar o que gerou valor.'],
+      ];
 
   return (
     <div className="space-y-0">
-
-      {/* HERO */}
       <FullBleed className="-mt-24">
         <ParallaxVideoHero videoSrc="/media/digital-world.mp4" photoSrc="/images/me.png" />
       </FullBleed>
 
-      {/* SEÇÃO BRANCA — QUEM EU SOU */}
       <FullBleed>
-        <section id="about" data-section="sec-2" className="relative bg-white text-zinc-950 scroll-mt-24">
-          <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-gradient-to-b from-transparent to-white" />
+        <div className="relative overflow-hidden bg-[#020713] text-white">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-60"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(56,189,248,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.045) 1px, transparent 1px)',
+              backgroundSize: '54px 54px',
+            }}
+          />
+          <div
+            className="pointer-events-none absolute left-1/2 top-20 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full blur-3xl"
+            style={{background: 'radial-gradient(circle, rgba(14,165,233,.13), transparent 68%)'}}
+          />
 
-          <div className="mx-auto max-w-[1480px] px-4 sm:px-6 lg:px-10 py-16">
+          <section id="expertise" className="relative mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-32 scroll-mt-28">
+            <div className="grid gap-14 lg:grid-cols-[0.85fr_1.35fr] lg:gap-20">
+              <ScrollReveal className="lg:sticky lg:top-32 lg:self-start" direction="left" glow>
+                <Eyebrow>{en ? 'What I build' : 'O que eu construo'}</Eyebrow>
+                <h2 className="mt-4 max-w-xl font-syne text-4xl font-bold tracking-[-0.035em] text-white sm:text-5xl">
+                  {en ? 'Architecture is only useful when it moves the business.' : 'Arquitetura só é útil quando move o negócio.'}
+                </h2>
+                <p className="mt-6 max-w-lg text-base leading-7 text-slate-400 sm:text-lg">
+                  {en
+                    ? 'I connect product, cloud, data and AI so the solution can leave the diagram and survive production.'
+                    : 'Conecto produto, cloud, dados e IA para que a solução saia do diagrama e sobreviva à produção.'}
+                </p>
+                <Link
+                  href="/about"
+                  className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-sky-300 transition hover:text-sky-200"
+                >
+                  {en ? 'More about my work' : 'Mais sobre minha atuação'} <Arrow />
+                </Link>
+              </ScrollReveal>
 
-            {/* Photo + Bio */}
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16 lg:items-center">
-              <aside className="lg:col-span-5 lg:-ml-10 xl:-ml-16">
-                <div className="relative overflow-hidden rounded-3xl">
-                  <Image
-                    src="/images/me-about.jpg"
-                    alt="Tom Kelve"
-                    width={1100}
-                    height={1300}
-                    sizes="(min-width: 1280px) 580px, (min-width: 1024px) 520px, 100vw"
-                    className="h-auto w-full object-cover"
-                  />
-                </div>
-              </aside>
-
-              <div className="lg:col-span-7 lg:pt-6 space-y-6">
-                <div>
-                  <p className="text-xs font-bold tracking-[0.2em] uppercase text-sky-600 mb-3">
-                    {safeLocale === 'pt-br' ? 'Quem eu sou' : 'Who I am'}
-                  </p>
-                  <h2 className="font-syne text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
-                    {t('aboutTitle')}
-                  </h2>
-                </div>
-                <div className="space-y-3 max-w-2xl">
-                  <p className="text-lg font-medium text-zinc-900 leading-relaxed">{t('aboutIntro1')}</p>
-                  <p className="text-zinc-600 leading-relaxed">{t('aboutIntro2')}</p>
-                  <p className="text-sm text-zinc-500">{t('aboutStack')}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Especialidades */}
-            <div className="mt-16">
-              <p className="text-xs font-bold tracking-[0.2em] uppercase text-sky-600 mb-3">
-                {safeLocale === 'pt-br' ? 'Especialidades' : 'Expertise'}
-              </p>
-              <h3 className="font-syne text-2xl sm:text-3xl font-bold text-zinc-950 mb-8">
-                {t('aboutSpecTitle')}
-              </h3>
-
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 lg:grid-flow-col">
-                <LightCard title={t('aboutS1Title')} desc={t('aboutS1Desc')} />
-                <LightCard title={t('aboutS2Title')} desc={t('aboutS2Desc')} />
-                <LightCard title={t('aboutS3Title')} desc={t('aboutS3Desc')} />
-                <LightCard title={t('aboutS4Title')} desc={t('aboutS4Desc')} />
-                <LightCard title={t('aboutS5Title')} desc={t('aboutS5Desc')} />
-                <LightCard title={t('aboutS6Title')} desc={t('aboutS6Desc')} />
-              </div>
-            </div>
-
-            {/* Como eu trabalho */}
-            <div className="mt-12 rounded-2xl border border-zinc-100 bg-zinc-50/70 p-7">
-              <p className="text-xs font-bold tracking-[0.2em] uppercase text-sky-600 mb-2">
-                {safeLocale === 'pt-br' ? 'Método' : 'Method'}
-              </p>
-              <h3 className="font-syne text-xl font-bold text-zinc-950 mb-6">{t('aboutWorkTitle')}</h3>
-
-              <div className="grid gap-4 sm:grid-cols-4">
-                <Step num="01" title="Blueprint" desc="C4 / L0–L4" />
-                <Step num="02" title="Implementação" desc="Entrega em produção" />
-                <Step num="03" title="Operação" desc="Observabilidade e SLOs" />
-                <Step num="04" title="Evolução" desc="Otimização contínua" />
-              </div>
-
-              <p className="mt-5 text-sm text-zinc-500 border-t border-zinc-200 pt-4">{t('aboutWorkFlow')}</p>
-            </div>
-          </div>
-
-          <CompanyLogoMarquee title={t('logoStripTitle')} subtitle={t('logoStripSubtitle')} speedSeconds={26} />
-        </section>
-      </FullBleed>
-
-      {/* SEÇÃO ESCURA — DIFERENCIAIS + CARREIRA + NEWSLETTER */}
-      <FullBleed>
-        <ParallaxSectionVideo
-          videoSrc="/media/digital-diferenciais.mp4"
-          className="relative isolate text-white force-white-text"
-          overlayClassName="bg-black/50"
-        >
-          <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-black/15 via-black/25 to-black/60" />
-
-          <div className="relative z-20 mx-auto max-w-6xl px-6 py-20 space-y-20">
-
-            {/* Diferenciais */}
-            <div>
-              <p className="text-xs font-bold tracking-[0.2em] uppercase kicker-accent mb-3">
-                {safeLocale === 'pt-br' ? 'Diferenciais' : 'Differentials'}
-              </p>
-              <h2 className="font-syne text-3xl sm:text-4xl font-bold tracking-tight mb-10">
-                {t('diffTitle')}
-              </h2>
-
-              <div className="grid gap-4 sm:grid-cols-3">
-                {[
-                  t('diff1Title'), t('diff2Title'), t('diff3Title'),
-                  t('diff4Title'), t('diff5Title'), t('diff6Title'),
-                ].map((title, i) => (
-                  <DarkCard
-                    key={i}
-                    Icon={darkCardIcons[i]}
-                    colorBg={darkCardColors[i].bg}
-                    colorRing={darkCardColors[i].ring}
-                    title={title}
-                    desc={[
-                      t('diff1Desc'), t('diff2Desc'), t('diff3Desc'),
-                      t('diff4Desc'), t('diff5Desc'), t('diff6Desc'),
-                    ][i]}
-                  />
+              <div className="divide-y divide-white/10 border-y border-white/10">
+                {pillars.map((pillar, index) => (
+                  <ScrollReveal key={pillar.number} delay={index * 110} direction="right">
+                  <article className="group grid gap-5 py-8 sm:grid-cols-[4rem_1fr] sm:py-10">
+                    <span className="font-mono text-xs tracking-[0.25em] text-sky-400/70">{pillar.number}</span>
+                    <div>
+                      <div className="flex items-start justify-between gap-4">
+                        <h3 className="font-syne text-2xl font-semibold tracking-tight text-white sm:text-3xl">{pillar.title}</h3>
+                        <span className="mt-1 text-sky-400 opacity-50 transition group-hover:translate-x-1 group-hover:opacity-100">
+                          <Arrow />
+                        </span>
+                      </div>
+                      <p className="mt-3 max-w-2xl leading-7 text-slate-400">{pillar.description}</p>
+                      <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2">
+                        {pillar.tags.map((tag) => (
+                          <span key={tag} className="font-mono text-[11px] uppercase tracking-[0.13em] text-slate-500">{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
+                  </ScrollReveal>
                 ))}
               </div>
             </div>
+          </section>
 
-            {/* Carreira */}
-            <div>
-              <p className="text-xs font-bold tracking-[0.2em] uppercase kicker-accent mb-3">
-                {safeLocale === 'pt-br' ? 'Linha do tempo' : 'Timeline'}
-              </p>
-              <h3 className="font-syne text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-                {safeLocale === 'pt-br' ? 'Histórico de carreira' : 'Career history'}
-              </h3>
-              <p className="text-white/65 text-sm max-w-2xl mb-8">
-                {safeLocale === 'pt-br'
-                  ? 'As 3 experiências mais recentes. Role para o lado para ver a próxima.'
-                  : 'The 3 most recent roles. Swipe to view the next one.'}
-              </p>
-              <CareerCarousel
-                theme="dark"
-                locale={safeLocale}
-                items={careerHomeItems}
-                seeAllHref="/career"
-                ctaLabel={safeLocale === 'pt-br' ? 'Ver completo' : 'See full history'}
-                prevLabel={safeLocale === 'pt-br' ? 'Anterior' : 'Previous'}
-                nextLabel={safeLocale === 'pt-br' ? 'Próximo' : 'Next'}
-              />
-            </div>
-
-            <div className="h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
-
-            {/* Newsletter */}
-            <NewsletterCarousel
-              items={newsletterItems}
-              imageSrc={newsletterCoverImage}
-              locale={safeLocale}
-              title="Newsletter"
-              description={
-                safeLocale === 'pt-br'
-                  ? 'Publicações e insights técnicos (arquitetura, integração, Power Platform, dados e IA).'
-                  : 'Technical insights (architecture, integration, Power Platform, data and AI).'
-              }
-            />
-          </div>
-        </ParallaxSectionVideo>
-      </FullBleed>
-
-      {/* SEÇÃO BRANCA — CERTIFICAÇÕES */}
-      <FullBleed>
-        <section className="bg-white text-zinc-950">
-          <div className="mx-auto max-w-6xl px-4 py-16">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-8">
-              <div>
-                <p className="text-xs font-bold tracking-[0.2em] uppercase text-sky-600 mb-2">Microsoft</p>
-                <h2 className="font-syne text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
-                  {t('certsTitle')}
-                </h2>
-                <p className="mt-2 text-sm text-zinc-500">{t('certsNote')}</p>
-              </div>
-              <Link
-                href="/certifications"
-                className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-5 py-2.5 text-sm font-semibold text-zinc-800 hover:bg-zinc-50 transition shrink-0"
-              >
-                {safeLocale === 'pt-br' ? 'Ver todas' : 'See all'}
-                <IconArrowRight />
-              </Link>
-            </div>
-
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start">
-              {certs.map((c) => (
-                <CertificationCard key={c.title} cert={c} />
-              ))}
-            </div>
-          </div>
-        </section>
-      </FullBleed>
-
-      {/* SEÇÃO ESCURA — PROJETOS EM DESTAQUE */}
-      <FullBleed>
-        <ParallaxSectionVideo
-          videoSrc="/media/Digital-Destaques.MP4"
-          className="relative isolate text-white force-white-text"
-          overlayClassName="bg-black/50"
-        >
-          <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-black/20 via-black/35 to-black/75" />
-
-          <div className="relative z-20 mx-auto max-w-6xl px-6 py-20">
-            <div className="flex items-end justify-between gap-6 mb-10">
-              <div>
-                <p className="text-xs font-bold tracking-[0.2em] uppercase kicker-accent mb-3">
-                  {safeLocale === 'pt-br' ? 'Portfólio' : 'Portfolio'}
-                </p>
-                <h2 className="font-syne text-3xl sm:text-4xl font-bold tracking-tight">
-                  {t('featuredTitle')}
-                </h2>
-                <p className="mt-3 max-w-2xl text-white/65 text-sm">{t('featuredDesc')}</p>
-              </div>
-              <Link
-                href="/projects"
-                className="hidden sm:inline-flex items-center gap-2 text-sm text-white/65 hover:text-white transition"
-              >
-                {safeLocale === 'pt-br' ? 'Ver todos' : 'See all'}
-                <IconArrowRight />
-              </Link>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-3">
-              {featured.map((p) => (
-                <ProjectCard key={p.slug} project={p} locale={safeLocale} />
-              ))}
-            </div>
-
-            <div className="mt-6 sm:hidden">
-              <Link href="/projects" className="text-sm text-white/70 hover:text-white transition">
-                {safeLocale === 'pt-br' ? 'Ver todos →' : 'See all →'}
-              </Link>
-            </div>
-          </div>
-        </ParallaxSectionVideo>
-      </FullBleed>
-
-      {/* CTA FINAL */}
-      <FullBleed>
-        <section className="bg-zinc-950">
-          <div className="mx-auto max-w-6xl px-6 py-20">
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-10 sm:p-14 backdrop-blur-sm text-white">
-              {/* Glow blobs */}
-              <div
-                className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full"
-                style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.18), transparent 65%)' }}
-              />
-              <div
-                className="pointer-events-none absolute -left-8 -bottom-8 h-56 w-56 rounded-full"
-                style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.12), transparent 65%)' }}
-              />
-
-              <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8">
-                <div className="space-y-3 max-w-xl">
-                  <p className="text-xs font-bold tracking-[0.2em] uppercase kicker-accent">
-                    {safeLocale === 'pt-br' ? 'Pronto para começar?' : "Ready to start?"}
-                  </p>
-                  <h2 className="font-syne text-3xl sm:text-4xl font-bold tracking-tight">
-                    {t('ctaBlockTitle')}
+          <section className="relative border-y border-white/[0.08] bg-white/[0.018]">
+            <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-32">
+              <ScrollReveal direction="up" glow>
+              <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+                <div>
+                  <Eyebrow>{en ? 'Selected work' : 'Projetos selecionados'}</Eyebrow>
+                  <h2 className="mt-4 max-w-3xl font-syne text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
+                    {en ? 'Cases where architecture had to work in the real world.' : 'Cases em que a arquitetura precisou funcionar no mundo real.'}
                   </h2>
-                  <p className="text-white/60 text-sm leading-relaxed">{t('ctaBlockDesc')}</p>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-sky-500 px-7 py-3.5 text-sm font-bold text-white transition hover:bg-sky-400"
-                    style={{ boxShadow: '0 0 28px rgba(14,165,233,0.40)' }}
-                  >
-                    {t('ctaBlockButton')}
-                    <IconArrowRight />
-                  </Link>
-                  <Link
-                    href="/projects"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/8 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-white/14"
-                  >
-                    {t('ctaProjects')}
-                    <IconArrowRight />
-                  </Link>
-                </div>
+                <Link href="/projects" className="inline-flex items-center gap-2 text-sm font-semibold text-sky-300 hover:text-sky-200">
+                  {en ? 'View all projects' : 'Ver todos os projetos'} <Arrow />
+                </Link>
+              </div>
+              </ScrollReveal>
+
+              <div className="mt-14 space-y-5">
+                {featured.map((project, index) => (
+                  <ScrollReveal key={project.slug} delay={index * 130} direction={index % 2 === 0 ? 'left' : 'right'} glow>
+                    <FeaturedCase project={project} locale={safeLocale} index={index} />
+                  </ScrollReveal>
+                ))}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+
+          <section className="relative mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-32">
+            <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+              <ScrollReveal direction="left" glow>
+                <div>
+                <Eyebrow>{en ? 'How I work' : 'Como eu trabalho'}</Eyebrow>
+                <h2 className="mt-4 font-syne text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
+                  {en ? 'From ambiguity to an operating system.' : 'Da ambiguidade a um sistema operável.'}
+                </h2>
+                <p className="mt-6 max-w-xl leading-7 text-slate-400">
+                  {en
+                    ? 'The goal is not to produce more diagrams. It is to reduce uncertainty before code and reduce surprises after go-live.'
+                    : 'O objetivo não é produzir mais diagramas. É reduzir incerteza antes do código e reduzir surpresas depois do go-live.'}
+                </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal className="relative" direction="right">
+                <div className="reveal-line absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-sky-400/60 via-sky-400/20 to-transparent sm:left-0 sm:right-0 sm:top-[19px] sm:h-px sm:w-auto" />
+                <div className="grid gap-8 sm:grid-cols-4 sm:gap-5">
+                  {method.map(([number, title, description], index) => (
+                    <ScrollReveal key={number} delay={index * 120} distance={18}>
+                    <div className="relative grid grid-cols-[2.5rem_1fr] gap-4 sm:block">
+                      <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-sky-400/40 bg-[#020713] font-mono text-[11px] text-sky-300 shadow-[0_0_30px_rgba(14,165,233,.12)]">
+                        {number}
+                      </div>
+                      <div className="sm:mt-7">
+                        <h3 className="font-syne text-lg font-semibold text-white">{title}</h3>
+                        <p className="mt-2 text-sm leading-6 text-slate-500">{description}</p>
+                      </div>
+                    </div>
+                    </ScrollReveal>
+                  ))}
+                </div>
+              </ScrollReveal>
+            </div>
+          </section>
+
+          <section className="relative border-y border-white/[0.08] bg-[#050a17]">
+            <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-28">
+              <ScrollReveal className="max-w-3xl" glow>
+                <Eyebrow>{en ? 'Authority & community' : 'Autoridade & comunidade'}</Eyebrow>
+                <h2 className="mt-4 font-syne text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
+                  {en ? 'Knowledge should circulate, not sit in a folder.' : 'Conhecimento bom precisa circular, não ficar numa pasta.'}
+                </h2>
+              </ScrollReveal>
+
+              <div className="mt-14 grid divide-y divide-white/10 border-y border-white/10 md:grid-cols-4 md:divide-x md:divide-y-0">
+                <ScrollReveal delay={0} direction="up"><AuthorityMetric value="2" label={en ? 'Microsoft events' : 'eventos Microsoft'} detail={en ? 'Talks on AI, agents and enterprise architecture.' : 'Palestras sobre IA, agentes e arquitetura enterprise.'} /></ScrollReveal>
+                <ScrollReveal delay={100} direction="up"><AuthorityMetric value="714" label={en ? 'newsletter subscribers' : 'assinantes na newsletter'} detail="Power Platform HUB" /></ScrollReveal>
+                <ScrollReveal delay={200} direction="up"><AuthorityMetric value="17" label={en ? 'published articles' : 'artigos publicados'} detail={en ? 'Technical content and practical architecture.' : 'Conteúdo técnico e arquitetura aplicada.'} /></ScrollReveal>
+                <ScrollReveal delay={300} direction="up"><AuthorityMetric value="8" label={en ? 'Microsoft certifications' : 'certificações Microsoft'} detail={en ? 'Power Platform, Azure and Data.' : 'Power Platform, Azure e Dados.'} /></ScrollReveal>
+              </div>
+            </div>
+          </section>
+
+          <section id="content" className="relative mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-32 scroll-mt-28">
+            <ScrollReveal glow>
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <Eyebrow>{en ? 'Recent content' : 'Conteúdo recente'}</Eyebrow>
+                <h2 className="mt-4 max-w-3xl font-syne text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
+                  {en ? 'Ideas from the field, not from a slide template.' : 'Ideias vindas do campo, não de um template de slide.'}
+                </h2>
+              </div>
+              <a
+                href="https://www.linkedin.com/newsletters/power-platform-hub-7014748618817454080/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-sky-300 hover:text-sky-200"
+              >
+                {en ? 'Open Power Platform HUB' : 'Abrir Power Platform HUB'} <Arrow />
+              </a>
+            </div>
+            </ScrollReveal>
+
+            <div className="mt-14 grid gap-5 md:grid-cols-3">
+              {recentContent.map((item, index) => (
+                <ScrollReveal key={item.slug} delay={index * 120} direction="up">
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group overflow-hidden rounded-[1.4rem] border border-white/10 bg-white/[0.025] transition duration-300 hover:-translate-y-1 hover:border-sky-400/30 hover:bg-white/[0.045]"
+                >
+                  <div className="relative h-48 overflow-hidden border-b border-white/10">
+                    <Image
+                      src={newsletterCoverImage}
+                      alt=""
+                      fill
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                      priority={index === 0}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050a17] via-transparent to-transparent" />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.16em] text-slate-500">
+                      <span>Power Platform HUB</span>
+                      <span>{item.dateLabel}</span>
+                    </div>
+                    <h3 className="mt-4 font-syne text-xl font-semibold leading-snug text-white">
+                      {item.title[safeLocale]}
+                    </h3>
+                    <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-sky-300">
+                      {en ? 'Read article' : 'Ler artigo'} <Arrow />
+                    </span>
+                  </div>
+                </a>
+                </ScrollReveal>
+              ))}
+            </div>
+          </section>
+
+          <section className="relative mx-auto max-w-7xl px-6 pb-28 sm:px-10 lg:pb-36">
+            <ScrollReveal direction="up" glow>
+            <div className="relative overflow-hidden rounded-[2rem] border border-sky-400/20 bg-gradient-to-br from-sky-500/[0.12] via-white/[0.035] to-violet-500/[0.08] p-8 sm:p-12 lg:p-16">
+              <div className="pointer-events-none absolute right-0 top-0 h-80 w-80 rounded-full bg-sky-400/10 blur-3xl" />
+              <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
+                <div>
+                  <Eyebrow>{en ? 'Next challenge' : 'Próximo desafio'}</Eyebrow>
+                  <h2 className="mt-4 max-w-4xl font-syne text-4xl font-bold tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
+                    {en ? 'Turn complexity into architecture that can actually operate.' : 'Transformar complexidade em arquitetura que realmente opera.'}
+                  </h2>
+                  <p className="mt-6 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+                    {en
+                      ? 'If the problem crosses systems, data, automation and AI, that is exactly where I like to work.'
+                      : 'Se o problema atravessa sistemas, dados, automação e IA, é exatamente aí que gosto de trabalhar.'}
+                  </p>
+                </div>
+                <Link
+                  href="/contact"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-slate-950 transition hover:bg-sky-100"
+                >
+                  {en ? 'Start a conversation' : 'Vamos conversar'} <Arrow />
+                </Link>
+              </div>
+            </div>
+            </ScrollReveal>
+          </section>
+        </div>
       </FullBleed>
-
     </div>
   );
 }
 
-/* ── Layout helpers ── */
-function FullBleed({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+function Eyebrow({children}: {children: ReactNode}) {
   return (
-    <div className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${className}`}>
+    <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-sky-400">
       {children}
-    </div>
+    </p>
   );
 }
 
-/* ── DarkCard ── */
-function DarkCard({
-  Icon,
-  colorBg,
-  colorRing,
-  title,
-  desc,
+function FeaturedCase({
+  project,
+  locale,
+  index,
 }: {
-  Icon: () => React.ReactElement;
-  colorBg: string;
-  colorRing: string;
-  title: string;
-  desc: string;
+  project: Project;
+  locale: 'pt-br' | 'en';
+  index: number;
+}) {
+  const en = locale === 'en';
+  const stack = project.stack.slice(0, 5);
+
+  return (
+    <article className="group relative overflow-hidden rounded-[1.65rem] border border-white/10 bg-[#07101e]/80 transition duration-300 hover:border-sky-400/30">
+      <div className="grid lg:grid-cols-[1.12fr_0.88fr]">
+        <div className="p-7 sm:p-9 lg:p-11">
+          <div className="flex items-center gap-4">
+            <span className="font-mono text-xs tracking-[0.22em] text-sky-400/70">0{index + 1}</span>
+            <span className="h-px w-10 bg-sky-400/25" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-slate-500">
+              {project.type === 'case' ? (en ? 'Case study' : 'Case') : 'Lab'}
+            </span>
+          </div>
+          <h3 className="mt-7 max-w-3xl font-syne text-2xl font-semibold leading-tight tracking-[-0.025em] text-white sm:text-3xl">
+            {project.title[locale]}
+          </h3>
+          <p className="mt-4 max-w-2xl leading-7 text-slate-400">{project.summary[locale]}</p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {project.tags.slice(0, 4).map((tag) => (
+              <span key={tag} className="rounded-full border border-white/10 px-3 py-1 text-[11px] text-slate-400">{tag}</span>
+            ))}
+          </div>
+          <Link href={'/projects/' + project.slug} className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-sky-300 hover:text-sky-200">
+            {en ? 'Explore the case' : 'Explorar o case'} <Arrow />
+          </Link>
+        </div>
+
+        <div className="relative min-h-[18rem] border-t border-white/10 bg-black/20 p-7 sm:p-9 lg:border-l lg:border-t-0 lg:p-10">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-35"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(56,189,248,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,.08) 1px, transparent 1px)',
+              backgroundSize: '32px 32px',
+            }}
+          />
+          <div className="relative flex h-full flex-col justify-between">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sky-400/70">
+                {en ? 'Architecture surface' : 'Superfície arquitetural'}
+              </p>
+              <div className="mt-6 space-y-3">
+                {stack.map((item, itemIndex) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-sky-400/20 bg-sky-400/[0.06] font-mono text-[10px] text-sky-300">
+                      {String(itemIndex + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-sm text-slate-300">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-8 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] text-slate-600">
+              <span>{en ? 'Context' : 'Contexto'}</span>
+              <span>→</span>
+              <span>{en ? 'Architecture' : 'Arquitetura'}</span>
+              <span>→</span>
+              <span>{en ? 'Operation' : 'Operação'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function AuthorityMetric({
+  value,
+  label,
+  detail,
+}: {
+  value: string;
+  label: string;
+  detail: string;
 }) {
   return (
-    <div className="group rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-sm transition duration-200 hover:bg-white/[0.08] hover:border-white/18 space-y-4">
-      <div className={`h-11 w-11 rounded-xl ${colorBg} ring-1 ${colorRing} flex items-center justify-center`}>
-        <Icon />
-      </div>
-      <h3 className="font-syne font-bold tracking-tight">{title}</h3>
-      <p className="text-sm text-white/68 leading-relaxed">{desc}</p>
+    <div className="px-0 py-7 md:px-7 md:py-9 md:first:pl-0 md:last:pr-0">
+      <strong className="block font-syne text-4xl font-bold tracking-[-0.04em] text-white sm:text-5xl">{value}</strong>
+      <span className="mt-2 block text-sm font-semibold text-sky-300">{label}</span>
+      <span className="mt-3 block text-sm leading-6 text-slate-500">{detail}</span>
     </div>
   );
 }
 
-/* ── LightCard ── */
-function LightCard({ title, desc }: { title: string; desc: string }) {
+function Arrow() {
   return (
-    <div className="rounded-2xl border border-zinc-100 bg-white p-6 hover:border-zinc-200 hover:shadow-sm transition">
-      <div className="h-1 w-8 rounded-full bg-sky-500 mb-4" />
-      <h4 className="font-syne font-bold text-zinc-950 mb-2">{title}</h4>
-      <p className="text-sm text-zinc-600 leading-relaxed">{desc}</p>
-    </div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-5-5 5 5-5 5" />
+    </svg>
   );
 }
 
-/* ── Step ── */
-function Step({ num, title, desc }: { num: string; title: string; desc: string }) {
+function FullBleed({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="rounded-2xl border border-zinc-100 bg-white p-5 space-y-2">
-      <span className="font-syne text-xs font-black tracking-widest text-sky-500">{num}</span>
-      <p className="font-syne font-bold text-zinc-950 text-sm">{title}</p>
-      <p className="text-xs text-zinc-500">{desc}</p>
+    <div className={'relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ' + className}>
+      {children}
     </div>
   );
 }
