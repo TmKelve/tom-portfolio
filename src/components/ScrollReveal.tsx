@@ -30,10 +30,7 @@ export default function ScrollReveal({
     if (!element) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (reduceMotion.matches) {
-      setVisible(true);
-      return;
-    }
+    if (reduceMotion.matches) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
