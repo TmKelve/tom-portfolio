@@ -1,437 +1,430 @@
-import { setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import ParallaxSectionVideo from "@/components/ParallaxSectionVideo";
-import type { Metadata } from "next";
+import Image from 'next/image';
+import type {Metadata} from 'next';
+import type {ReactNode} from 'react';
+import {setRequestLocale} from 'next-intl/server';
+
+import {Link} from '@/i18n/navigation';
+import ScrollReveal from '@/components/ScrollReveal';
+import {career, type Locale} from '@/content/career';
+import './about.css';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{locale: string}>;
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const isEn = locale === "en";
-  const title = isEn ? "About" : "Sobre";
-  const description = isEn
-    ? "Tom Kelve — Azure & Power Platform Architect. Over 5 years delivering enterprise solutions from blueprint to production."
-    : "Tom Kelve — Arquiteto Azure & Power Platform. Mais de 5 anos entregando soluções enterprise do blueprint ao go-live.";
+  const {locale} = await params;
+  const en = locale === 'en';
+
   return {
-    title,
-    description,
-    alternates: { canonical: `https://tomkelve.com/${locale}/about` },
-    openGraph: {
-      title: `${title} | Tom Kelve`,
-      description,
-      images: [
-        {
-          url: `/og?title=${encodeURIComponent(title)}&subtitle=tomkelve.com`,
-          width: 1200,
-          height: 630,
-        },
-      ],
+    title: en ? 'About' : 'Sobre',
+    description: en
+      ? 'Tom Kelve, Azure & Power Platform Solution Architect. Enterprise architecture, integration, automation, data and AI from blueprint to production.'
+      : 'Tom Kelve, Arquiteto de Soluções Azure & Power Platform. Arquitetura enterprise, integração, automação, dados e IA do blueprint à produção.',
+    alternates: {
+      canonical: 'https://tomkelve.com/' + locale + '/about',
+      languages: {'pt-BR': '/pt-br/about', en: '/en/about'},
     },
   };
 }
 
-/* ── SVG Icons ── */
-function CloudIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15Z" />
-    </svg>
-  );
-}
-
-function BoltIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-    </svg>
-  );
-}
-
-function ChartIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
-    </svg>
-  );
-}
-
-function ArrowRightIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-    </svg>
-  );
-}
-
-/* ── Data ── */
-const pillars = {
-  "pt-br": [
-    {
-      Icon: CloudIcon,
-      colorBg: "bg-sky-500/15",
-      colorRing: "ring-sky-400/40",
-      title: "Azure Platform",
-      desc: "AKS, Service Bus, Functions, Event Grid, Logic Apps, APIM/APISIX, IaC, CI/CD e observabilidade — arquiteturas API-first e event-driven prontas para produção.",
-    },
-    {
-      Icon: BoltIcon,
-      colorBg: "bg-violet-500/15",
-      colorRing: "ring-violet-400/40",
-      title: "Power Platform",
-      desc: "Power Apps (Canvas + Model-driven), Power Automate, Power Pages, Copilot Studio e Dataverse — da automação simples ao app corporativo com governança CoE.",
-    },
-    {
-      Icon: ChartIcon,
-      colorBg: "bg-emerald-500/15",
-      colorRing: "ring-emerald-400/40",
-      title: "Data, BI & AI",
-      desc: "Power BI, camadas semânticas, DAX e Fabric para analytics; Azure OpenAI, AI Builder e AI Foundry para IA aplicada com rastreabilidade e segurança.",
-    },
-  ],
-  en: [
-    {
-      Icon: CloudIcon,
-      colorBg: "bg-sky-500/15",
-      colorRing: "ring-sky-400/40",
-      title: "Azure Platform",
-      desc: "AKS, Service Bus, Functions, Event Grid, Logic Apps, APIM/APISIX, IaC, CI/CD, and observability — API-first and event-driven architectures built for production.",
-    },
-    {
-      Icon: BoltIcon,
-      colorBg: "bg-violet-500/15",
-      colorRing: "ring-violet-400/40",
-      title: "Power Platform",
-      desc: "Power Apps (Canvas + Model-driven), Power Automate, Power Pages, Copilot Studio, and Dataverse — from simple automation to enterprise apps with CoE governance.",
-    },
-    {
-      Icon: ChartIcon,
-      colorBg: "bg-emerald-500/15",
-      colorRing: "ring-emerald-400/40",
-      title: "Data, BI & AI",
-      desc: "Power BI, semantic layers, DAX, and Fabric for analytics; Azure OpenAI, AI Builder, and AI Foundry for applied AI with traceability and security.",
-    },
-  ],
-};
-
 const principles = {
-  "pt-br": [
+  'pt-br': [
     {
-      number: "01",
-      title: "Blueprint antes do código",
-      desc: "Toda solução começa com um C4/L0–L4 claro. Só coloco a mão no teclado quando entendo o problema de verdade.",
+      number: '01',
+      title: 'Entender antes de desenhar',
+      description:
+        'Arquitetura começa no contexto. Antes da tecnologia, eu procuro entender o fluxo, as restrições, os riscos e o que realmente precisa mudar.',
     },
     {
-      number: "02",
-      title: "Hands-on até o go-live",
-      desc: "Não paro na arquitetura. Implemento, integro, monitoro e itero — do discovery ao primeiro deploy em produção.",
+      number: '02',
+      title: 'Arquitetura precisa sobreviver à produção',
+      description:
+        'Não considero o trabalho concluído no diagrama. Implementação, observabilidade, segurança, operação e evolução fazem parte da arquitetura.',
     },
     {
-      number: "03",
-      title: "Governança como requisito",
-      desc: "Segurança, DLP, ambientes e ALM não são extras. Fazem parte do desenho desde o início, não remendo no fim.",
+      number: '03',
+      title: 'Governança deve nascer com a solução',
+      description:
+        'ALM, identidade, RBAC, DLP, contratos e padrões de integração entram no desenho desde o início, não como remendo depois do go-live.',
     },
     {
-      number: "04",
-      title: "Falha é esperada, caos não",
-      desc: "Idempotência, retry/backoff, DLQ e reprocessamento controlado. Sistema robusto é aquele que falha bem.",
+      number: '04',
+      title: 'Falha controlada é parte do design',
+      description:
+        'Retries, idempotência, DLQ, rastreabilidade e reprocessamento são escolhas arquiteturais. Sistemas maduros não fingem que falhas não existem.',
     },
   ],
   en: [
     {
-      number: "01",
-      title: "Blueprint before code",
-      desc: "Every solution starts with a clear C4/L0–L4. I only start coding when I truly understand the problem.",
+      number: '01',
+      title: 'Understand before designing',
+      description:
+        'Architecture starts with context. Before technology, I work to understand the flow, constraints, risks and what actually needs to change.',
     },
     {
-      number: "02",
-      title: "Hands-on until go-live",
-      desc: "I don't stop at architecture. I implement, integrate, monitor, and iterate — from discovery to the first production deploy.",
+      number: '02',
+      title: 'Architecture must survive production',
+      description:
+        'I do not consider the work done at the diagram. Implementation, observability, security, operations and evolution are part of the architecture.',
     },
     {
-      number: "03",
-      title: "Governance as a requirement",
-      desc: "Security, DLP, environments, and ALM are not extras. They're part of the design from the start, not a patch at the end.",
+      number: '03',
+      title: 'Governance should start with the solution',
+      description:
+        'ALM, identity, RBAC, DLP, contracts and integration standards belong in the initial design, not as a patch after go-live.',
     },
     {
-      number: "04",
-      title: "Failure is expected, chaos is not",
-      desc: "Idempotency, retry/backoff, DLQ, and controlled reprocessing. A robust system is one that fails gracefully.",
+      number: '04',
+      title: 'Controlled failure is part of the design',
+      description:
+        'Retries, idempotency, DLQ, traceability and reprocessing are architectural choices. Mature systems do not pretend failures do not exist.',
     },
   ],
 };
 
-const stack = [
-  "Azure Kubernetes Service",
-  "Azure Service Bus",
-  "Azure Functions",
-  "Event Grid",
-  "Logic Apps",
-  "API Management",
-  "Power Apps",
-  "Power Automate",
-  "Power Pages",
-  "Copilot Studio",
-  "Dataverse",
-  "Power BI",
-  "Microsoft Fabric",
-  "Azure OpenAI",
-  "AI Builder",
-  "IaC / Bicep",
-  "CI/CD Pipelines",
-  "C4 Architecture",
-];
+const domains = {
+  'pt-br': [
+    {
+      title: 'Cloud & Integração',
+      description: 'Arquiteturas API-first e event-driven para fluxos enterprise críticos.',
+      stack: ['AKS', 'Service Bus', 'Functions', 'Logic Apps', 'APIM / APISIX', 'Key Vault'],
+    },
+    {
+      title: 'Power Platform',
+      description: 'Produtos digitais, automação e governança conectando negócio e engenharia.',
+      stack: ['Power Apps', 'Power Automate', 'Power Pages', 'Dataverse', 'Copilot Studio', 'ALM'],
+    },
+    {
+      title: 'Data & IA',
+      description: 'Dados confiáveis e IA aplicada com contexto, segurança e rastreabilidade.',
+      stack: ['Power BI', 'Fabric', 'Azure OpenAI', 'AI Builder', 'AI Foundry', 'Semantic Models'],
+    },
+  ],
+  en: [
+    {
+      title: 'Cloud & Integration',
+      description: 'API-first and event-driven architectures for critical enterprise flows.',
+      stack: ['AKS', 'Service Bus', 'Functions', 'Logic Apps', 'APIM / APISIX', 'Key Vault'],
+    },
+    {
+      title: 'Power Platform',
+      description: 'Digital products, automation and governance connecting business and engineering.',
+      stack: ['Power Apps', 'Power Automate', 'Power Pages', 'Dataverse', 'Copilot Studio', 'ALM'],
+    },
+    {
+      title: 'Data & AI',
+      description: 'Trusted data and applied AI with context, security and traceability.',
+      stack: ['Power BI', 'Fabric', 'Azure OpenAI', 'AI Builder', 'AI Foundry', 'Semantic Models'],
+    },
+  ],
+};
 
-/* ── Page ── */
 export default async function AboutPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{locale: string}>;
 }) {
-  const { locale } = await params;
+  const {locale} = await params;
   setRequestLocale(locale);
 
-  const l = (locale === "en" ? "en" : "pt-br") as "pt-br" | "en";
-  const isEn = l === "en";
-
-  const metrics = isEn
-    ? [
-        { value: "5+", label: "Years of\nexperience" },
-        { value: "40+", label: "Enterprise\ndeliveries" },
-        { value: "10+", label: "Microsoft\ncertifications" },
-      ]
-    : [
-        { value: "5+", label: "Anos de\nexperiência" },
-        { value: "40+", label: "Entregas\nenterprise" },
-        { value: "10+", label: "Certificações\nMicrosoft" },
-      ];
+  const l = (locale === 'en' ? 'en' : 'pt-br') as Locale;
+  const en = l === 'en';
+  const current = career[0];
+  const recentCareer = career.slice(0, 3);
 
   return (
     <FullBleed>
-      <ParallaxSectionVideo
-        videoSrc="/media/digital-world.mp4"
-        className="relative isolate text-white force-white-text"
-        overlayClassName="bg-black/50"
-      >
-        {/* Gradient overlay — stronger at bottom for section transitions */}
-        <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-black/15 via-black/30 to-black/85" />
+      <main className="about-page">
+        <section className="about-hero">
+          <div className="about-grid" aria-hidden="true" />
+          <div className="about-glow about-glow-one" aria-hidden="true" />
+          <div className="about-glow about-glow-two" aria-hidden="true" />
 
-        <section className="relative z-20">
-          <div className="mx-auto max-w-6xl px-6 py-24 space-y-20">
+          <div className="about-container about-hero-grid">
+            <ScrollReveal className="about-hero-copy" direction="left" glow>
+              <p className="about-kicker">{en ? 'ABOUT' : 'SOBRE'}</p>
+              <h1>
+                {en ? (
+                  <>
+                    I connect context,
+                    <span>technology and operation.</span>
+                  </>
+                ) : (
+                  <>
+                    Conecto contexto,
+                    <span>tecnologia e operação.</span>
+                  </>
+                )}
+              </h1>
+              <p className="about-lead">
+                {en
+                  ? 'I am a hands-on Solution Architect working across Azure, Power Platform, Data and AI. My focus is turning complex business flows into architectures that can be implemented, observed and evolved.'
+                  : 'Sou Arquiteto de Soluções hands-on atuando entre Azure, Power Platform, Dados e IA. Meu foco é transformar fluxos complexos de negócio em arquiteturas que possam ser implementadas, observadas e evoluídas.'}
+              </p>
+              <p className="about-sublead">
+                {en
+                  ? 'I move between architecture and execution, from discovery and blueprint to integration, go-live and production reliability.'
+                  : 'Transito entre arquitetura e execução, do discovery e blueprint à integração, go-live e confiabilidade em produção.'}
+              </p>
 
-            {/* ── Hero ── */}
-            <div className="space-y-10 animate-fade-in-up">
-              <div className="space-y-6 max-w-3xl">
-
-                {/* Status badge */}
-                <div className="inline-flex items-center gap-2.5 rounded-full border border-white/12 bg-white/6 px-4 py-1.5 backdrop-blur-sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse-dot" />
-                  <span className="text-xs font-bold tracking-[0.2em] uppercase kicker-accent">
-                    {isEn ? "About me" : "Sobre mim"}
-                  </span>
-                </div>
-
-                {/* Name */}
-                <h1 className="font-syne text-6xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[0.92]">
-                  Tom Kelve
-                </h1>
-
-                {/* Role */}
-                <p className="text-lg sm:text-xl font-medium text-white/65 tracking-wide">
-                  Azure &amp; Power Platform Solution Architect
-                </p>
-
-                {/* Primary description */}
-                <p className="text-base sm:text-[17px] text-white/82 leading-relaxed max-w-2xl">
-                  {isEn
-                    ? "Hands-on architect with 5+ years delivering enterprise initiatives — from discovery and C4 blueprint to production go-live, with governance, security, and end-to-end observability."
-                    : "Arquiteto hands-on com mais de 5 anos entregando iniciativas enterprise — do discovery e blueprint C4 até o go-live em produção, com governança, segurança e observabilidade ponta a ponta."}
-                </p>
-
-                {/* Secondary description */}
-                <p className="text-sm sm:text-base text-white/60 leading-relaxed max-w-xl">
-                  {isEn
-                    ? "I operate end-to-end — connecting channels, data, and services through APIs and event-driven architecture, always focused on predictability, resilience, and continuous improvement."
-                    : "Atuo ponta a ponta — conectando canais, dados e serviços via APIs e arquitetura event-driven, sempre com foco em previsibilidade, resiliência e melhoria contínua."}
-                </p>
+              <div className="about-hero-actions">
+                <Link href="/projects" className="about-primary-button">
+                  {en ? 'Explore projects' : 'Explorar projetos'}
+                  <Arrow />
+                </Link>
+                <Link href="/career" className="about-secondary-button">
+                  {en ? 'View full career' : 'Ver carreira completa'}
+                </Link>
               </div>
 
-              {/* Metrics bar */}
-              <div className="flex flex-wrap w-fit divide-x divide-white/10 overflow-hidden rounded-2xl border border-white/12 bg-white/6 backdrop-blur-sm">
-                {metrics.map((m, i) => (
-                  <div
-                    key={i}
-                    className="flex flex-col items-center justify-center px-8 py-5 gap-1.5 min-w-[120px]"
-                  >
-                    <span className="font-syne text-3xl font-extrabold leading-none tracking-tight">
-                      {m.value}
-                    </span>
-                    <span className="text-[11px] text-white/50 text-center leading-snug whitespace-pre-line">
-                      {m.label}
-                    </span>
-                  </div>
-                ))}
+              <div className="about-proof-row">
+                <Proof value="5+" label={en ? 'years in enterprise solutions' : 'anos em soluções enterprise'} />
+                <Proof value="8" label={en ? 'Microsoft certifications' : 'certificações Microsoft'} />
+                <Proof value="17" label={en ? 'published articles' : 'artigos publicados'} />
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal className="about-portrait-shell" direction="right" delay={120}>
+              <div className="about-portrait-orbit" aria-hidden="true">
+                <span />
+                <span />
+              </div>
+              <div className="about-portrait-frame">
+                <Image
+                  src="/images/me-about.jpg"
+                  alt={en ? 'Tom Kelve' : 'Tom Kelve'}
+                  fill
+                  priority
+                  sizes="(min-width: 1000px) 42vw, 90vw"
+                  className="about-portrait-image"
+                />
+                <div className="about-portrait-shade" />
               </div>
 
-              <Link
-                href="/"
-                className="inline-flex w-fit items-center gap-1.5 text-sm text-white/35 transition hover:text-white/65"
-              >
-                ← {isEn ? "Back to Home" : "Voltar para Home"}
-              </Link>
-            </div>
-
-            {/* ── Divider ── */}
-            <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-
-            {/* ── DNA técnico ── */}
-            <div className="space-y-10">
-              <SectionHeader
-                kicker={isEn ? "Technical DNA" : "DNA técnico"}
-                title={isEn ? "Three pillars, one architecture" : "Três pilares, uma arquitetura"}
-              />
-
-              <div className="grid gap-5 sm:grid-cols-3">
-                {pillars[l].map((p) => (
-                  <div
-                    key={p.title}
-                    className="group rounded-2xl border border-white/10 bg-white/[0.05] p-7 backdrop-blur-sm transition duration-200 hover:bg-white/[0.08] hover:border-white/18 space-y-5"
-                  >
-                    <div className={`h-12 w-12 rounded-xl ${p.colorBg} ring-1 ${p.colorRing} flex items-center justify-center`}>
-                      <p.Icon className="h-6 w-6" />
-                    </div>
-                    <h3 className="font-syne text-lg font-bold tracking-tight">{p.title}</h3>
-                    <p className="text-sm text-white/70 leading-relaxed">{p.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* ── Princípios ── */}
-            <div className="space-y-10">
-              <SectionHeader
-                kicker={isEn ? "How I think" : "Como eu penso"}
-                title={isEn ? "Principles that guide my work" : "Princípios que guiam meu trabalho"}
-              />
-
-              <div className="grid gap-5 sm:grid-cols-2">
-                {principles[l].map((p) => (
-                  <div
-                    key={p.number}
-                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] p-7 backdrop-blur-sm transition duration-200 hover:bg-white/[0.08] hover:border-white/18"
-                  >
-                    {/* Large decorative number */}
-                    <span
-                      className="font-syne pointer-events-none absolute right-4 top-2 text-8xl font-black leading-none select-none number-bg-accent"
-                      aria-hidden="true"
-                    >
-                      {p.number}
-                    </span>
-                    <div className="relative space-y-2.5 max-w-[82%]">
-                      <span className="font-syne text-xs font-black tracking-widest number-accent">
-                        {p.number}
-                      </span>
-                      <h3 className="font-syne text-base font-bold tracking-tight leading-snug">
-                        {p.title}
-                      </h3>
-                      <p className="text-sm text-white/68 leading-relaxed">{p.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* ── Stack ── */}
-            <div className="space-y-8">
-              <SectionHeader
-                kicker="Stack"
-                title={isEn ? "Technologies & Platforms" : "Tecnologias & Plataformas"}
-              />
-
-              <div className="flex flex-wrap gap-2.5">
-                {stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full border border-white/12 bg-white/[0.05] px-4 py-2 text-sm text-white/80 backdrop-blur-sm transition hover:border-white/22 hover:bg-white/[0.09] hover:text-white"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* ── CTA ── */}
-            <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.05] p-8 sm:p-10 backdrop-blur-sm">
-              {/* Glow blobs */}
-              <div
-                className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full"
-                style={{ background: "radial-gradient(circle, rgba(14,165,233,0.18), transparent 65%)" }}
-              />
-              <div
-                className="pointer-events-none absolute -left-10 -bottom-10 h-64 w-64 rounded-full"
-                style={{ background: "radial-gradient(circle, rgba(16,185,129,0.12), transparent 65%)" }}
-              />
-
-              <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8">
-                <div className="space-y-3 max-w-lg">
-                  <h2 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight">
-                    {isEn
-                      ? "Want to talk about a project?"
-                      : "Quer conversar sobre um projeto?"}
-                  </h2>
-                  <p className="text-white/62 text-sm leading-relaxed">
-                    {isEn
-                      ? "I can detail trade-offs and technical decisions in a private conversation. NDA available when needed."
-                      : "Posso detalhar trade-offs e decisões técnicas em conversa privada. NDA disponível quando necessário."}
-                  </p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-                  <Link
-                    href="/projects"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/18 bg-white/8 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/14 hover:border-white/25"
-                  >
-                    {isEn ? "See projects" : "Ver projetos"}
-                    <ArrowRightIcon className="h-4 w-4" />
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-sky-500 px-6 py-3 text-sm font-bold text-white transition hover:bg-sky-400"
-                    style={{ boxShadow: "0 0 28px rgba(14,165,233,0.40), 0 2px 8px rgba(0,0,0,0.3)" }}
-                  >
-                    {isEn ? "Contact" : "Contato"}
-                    <ArrowRightIcon className="h-4 w-4" />
-                  </Link>
+              <div className="about-current-role">
+                <span className="about-role-status" aria-hidden="true" />
+                <div>
+                  <span>{en ? 'Currently' : 'Atualmente'}</span>
+                  <strong>{current.title[l]}</strong>
+                  <small>{current.company}</small>
                 </div>
               </div>
-            </div>
-
+            </ScrollReveal>
           </div>
         </section>
-      </ParallaxSectionVideo>
+
+        <section className="about-section about-section-soft">
+          <div className="about-container about-story-grid">
+            <ScrollReveal direction="left">
+              <SectionIntro
+                kicker={en ? 'HOW I OPERATE' : 'COMO EU ATUO'}
+                title={en ? 'Architecture is a delivery discipline.' : 'Arquitetura é uma disciplina de entrega.'}
+              />
+            </ScrollReveal>
+
+            <ScrollReveal direction="right" delay={100}>
+              <div className="about-story-copy">
+                <p>
+                  {en
+                    ? 'My work lives in the space between business complexity and technical execution. I help translate critical flows into clear boundaries, contracts, events, APIs, automation and operational controls.'
+                    : 'Meu trabalho acontece no espaço entre a complexidade do negócio e a execução técnica. Ajudo a traduzir fluxos críticos em limites claros, contratos, eventos, APIs, automação e controles operacionais.'}
+                </p>
+                <p>
+                  {en
+                    ? 'That means being comfortable discussing architecture with leadership, reviewing implementation with engineers and following the solution until production behavior matches the intent of the design.'
+                    : 'Isso significa conversar sobre arquitetura com liderança, revisar implementação com engenharia e acompanhar a solução até que o comportamento em produção esteja alinhado ao desenho.'}
+                </p>
+
+                <div className="about-current-focus">
+                  <span>{en ? 'Current focus' : 'Foco atual'}</span>
+                  <strong>{current.company}</strong>
+                  <ul>
+                    {current.highlights.short[l].map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        <section className="about-section">
+          <div className="about-container">
+            <ScrollReveal glow>
+              <SectionIntro
+                kicker={en ? 'TECHNICAL SURFACE' : 'SUPERFÍCIE TÉCNICA'}
+                title={en ? 'Different platforms. One architecture.' : 'Plataformas diferentes. Uma arquitetura.'}
+                description={
+                  en
+                    ? 'The stack changes. The principles of integration, security, observability and operability do not.'
+                    : 'A stack muda. Os princípios de integração, segurança, observabilidade e operabilidade não.'
+                }
+              />
+            </ScrollReveal>
+
+            <div className="about-domain-list">
+              {domains[l].map((domain, index) => (
+                <ScrollReveal key={domain.title} delay={index * 110} direction="up">
+                  <article className="about-domain-row">
+                    <span className="about-domain-index">0{index + 1}</span>
+                    <div className="about-domain-copy">
+                      <h3>{domain.title}</h3>
+                      <p>{domain.description}</p>
+                    </div>
+                    <div className="about-domain-stack">
+                      {domain.stack.map((tech) => (
+                        <span key={tech}>{tech}</span>
+                      ))}
+                    </div>
+                  </article>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="about-section about-section-soft">
+          <div className="about-container about-principles-layout">
+            <ScrollReveal className="about-principles-heading" direction="left" glow>
+              <SectionIntro
+                kicker={en ? 'HOW I THINK' : 'COMO EU PENSO'}
+                title={en ? 'Principles before patterns.' : 'Princípios antes de padrões.'}
+                description={
+                  en
+                    ? 'Technology decisions make more sense when the principles behind them are explicit.'
+                    : 'Decisões de tecnologia fazem mais sentido quando os princípios por trás delas estão explícitos.'
+                }
+              />
+            </ScrollReveal>
+
+            <div className="about-principles">
+              {principles[l].map((principle, index) => (
+                <ScrollReveal key={principle.number} delay={index * 100} direction="right">
+                  <article className="about-principle">
+                    <span>{principle.number}</span>
+                    <div>
+                      <h3>{principle.title}</h3>
+                      <p>{principle.description}</p>
+                    </div>
+                  </article>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="about-section">
+          <div className="about-container">
+            <ScrollReveal glow>
+              <div className="about-career-header">
+                <SectionIntro
+                  kicker={en ? 'TRAJECTORY' : 'TRAJETÓRIA'}
+                  title={en ? 'A path toward architecture.' : 'Uma trajetória em direção à arquitetura.'}
+                  description={
+                    en
+                      ? 'A condensed view of the most recent chapters. The complete history remains available for those who want the details.'
+                      : 'Uma visão condensada dos capítulos mais recentes. O histórico completo continua disponível para quem quiser os detalhes.'
+                  }
+                />
+                <Link href="/career" className="about-inline-link">
+                  {en ? 'Full career' : 'Carreira completa'} <Arrow />
+                </Link>
+              </div>
+            </ScrollReveal>
+
+            <div className="about-career-list">
+              {recentCareer.map((item, index) => (
+                <ScrollReveal key={item.id} delay={index * 110} direction="up">
+                  <article className="about-career-item">
+                    <div className="about-career-period">{item.range[l]}</div>
+                    <div className="about-career-main">
+                      <h3>{item.title[l]}</h3>
+                      <p>{item.company}</p>
+                      <div className="about-career-tags">
+                        {item.tags?.slice(0, 5).map((tag) => <span key={tag}>{tag}</span>)}
+                      </div>
+                    </div>
+                    <span className="about-career-number">0{index + 1}</span>
+                  </article>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="about-section about-final-section">
+          <div className="about-container">
+            <ScrollReveal direction="up" glow>
+              <div className="about-final-card">
+                <div>
+                  <p className="about-kicker">{en ? 'KEEP EXPLORING' : 'CONTINUE EXPLORANDO'}</p>
+                  <h2>{en ? 'The résumé is only one layer.' : 'O currículo é só uma camada.'}</h2>
+                  <p>
+                    {en
+                      ? 'Projects show the architecture in context. Certifications show the formal foundation. The conversation connects both.'
+                      : 'Os projetos mostram a arquitetura em contexto. As certificações mostram a base formal. A conversa conecta os dois.'}
+                  </p>
+                </div>
+                <div className="about-final-actions">
+                  <Link href="/projects" className="about-primary-button">
+                    {en ? 'View projects' : 'Ver projetos'} <Arrow />
+                  </Link>
+                  <Link href="/certifications" className="about-secondary-button">
+                    {en ? 'Certifications' : 'Certificações'}
+                  </Link>
+                  <Link href="/contact" className="about-text-button">
+                    {en ? 'Contact' : 'Contato'} <Arrow />
+                  </Link>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+      </main>
     </FullBleed>
   );
 }
 
-/* ── Sub-components ── */
-function SectionHeader({ kicker, title }: { kicker: string; title: string }) {
+function Proof({value, label}: {value: string; label: string}) {
   return (
-    <div className="space-y-3">
-      <p className="text-xs font-bold tracking-[0.22em] uppercase kicker-accent">{kicker}</p>
-      <h2 className="font-syne text-3xl sm:text-4xl font-bold tracking-tight">{title}</h2>
+    <div className="about-proof">
+      <strong>{value}</strong>
+      <span>{label}</span>
     </div>
   );
 }
 
-function FullBleed({
-  children,
-  className = "",
+function SectionIntro({
+  kicker,
+  title,
+  description,
 }: {
-  children: React.ReactNode;
-  className?: string;
+  kicker: string;
+  title: string;
+  description?: string;
 }) {
   return (
-    <div className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${className}`}>
+    <div className="about-section-intro">
+      <p className="about-kicker">{kicker}</p>
+      <h2>{title}</h2>
+      {description ? <p>{description}</p> : null}
+    </div>
+  );
+}
+
+function Arrow() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-5-5 5 5-5 5" />
+    </svg>
+  );
+}
+
+function FullBleed({children}: {children: ReactNode}) {
+  return (
+    <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
       {children}
     </div>
   );
