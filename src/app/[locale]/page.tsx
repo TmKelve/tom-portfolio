@@ -5,6 +5,7 @@ import {setRequestLocale} from 'next-intl/server';
 
 import {Link} from '@/i18n/navigation';
 import ParallaxVideoHero from '@/components/ParallaxVideoHero';
+import ScrollReveal from '@/components/ScrollReveal';
 import {projects, type Project} from '@/content/projects';
 import {newsletters, newsletterCoverImage} from '@/content/newsletters';
 
@@ -145,7 +146,7 @@ export default async function HomePage({
 
           <section id="expertise" className="relative mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-32 scroll-mt-28">
             <div className="grid gap-14 lg:grid-cols-[0.85fr_1.35fr] lg:gap-20">
-              <div className="lg:sticky lg:top-32 lg:self-start">
+              <ScrollReveal className="lg:sticky lg:top-32 lg:self-start" direction="left" glow>
                 <Eyebrow>{en ? 'What I build' : 'O que eu construo'}</Eyebrow>
                 <h2 className="mt-4 max-w-xl font-syne text-4xl font-bold tracking-[-0.035em] text-white sm:text-5xl">
                   {en ? 'Architecture is only useful when it moves the business.' : 'Arquitetura só é útil quando move o negócio.'}
@@ -161,11 +162,12 @@ export default async function HomePage({
                 >
                   {en ? 'More about my work' : 'Mais sobre minha atuação'} <Arrow />
                 </Link>
-              </div>
+              </ScrollReveal>
 
               <div className="divide-y divide-white/10 border-y border-white/10">
-                {pillars.map((pillar) => (
-                  <article key={pillar.number} className="group grid gap-5 py-8 sm:grid-cols-[4rem_1fr] sm:py-10">
+                {pillars.map((pillar, index) => (
+                  <ScrollReveal key={pillar.number} delay={index * 110} direction="right">
+                  <article className="group grid gap-5 py-8 sm:grid-cols-[4rem_1fr] sm:py-10">
                     <span className="font-mono text-xs tracking-[0.25em] text-sky-400/70">{pillar.number}</span>
                     <div>
                       <div className="flex items-start justify-between gap-4">
@@ -182,13 +184,16 @@ export default async function HomePage({
                       </div>
                     </div>
                   </article>
+                  </ScrollReveal>
                 ))}
               </div>
             </div>
+            </ScrollReveal>
           </section>
 
           <section className="relative border-y border-white/[0.08] bg-white/[0.018]">
             <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-32">
+              <ScrollReveal direction="up" glow>
               <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
                 <div>
                   <Eyebrow>{en ? 'Selected work' : 'Projetos selecionados'}</Eyebrow>
@@ -200,10 +205,13 @@ export default async function HomePage({
                   {en ? 'View all projects' : 'Ver todos os projetos'} <Arrow />
                 </Link>
               </div>
+              </ScrollReveal>
 
               <div className="mt-14 space-y-5">
                 {featured.map((project, index) => (
-                  <FeaturedCase key={project.slug} project={project} locale={safeLocale} index={index} />
+                  <ScrollReveal key={project.slug} delay={index * 130} direction={index % 2 === 0 ? 'left' : 'right'} glow>
+                    <FeaturedCase project={project} locale={safeLocale} index={index} />
+                  </ScrollReveal>
                 ))}
               </div>
             </div>
@@ -211,7 +219,8 @@ export default async function HomePage({
 
           <section className="relative mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-32">
             <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-              <div>
+              <ScrollReveal direction="left" glow>
+                <div>
                 <Eyebrow>{en ? 'How I work' : 'Como eu trabalho'}</Eyebrow>
                 <h2 className="mt-4 font-syne text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
                   {en ? 'From ambiguity to an operating system.' : 'Da ambiguidade a um sistema operável.'}
@@ -221,13 +230,15 @@ export default async function HomePage({
                     ? 'The goal is not to produce more diagrams. It is to reduce uncertainty before code and reduce surprises after go-live.'
                     : 'O objetivo não é produzir mais diagramas. É reduzir incerteza antes do código e reduzir surpresas depois do go-live.'}
                 </p>
-              </div>
+                </div>
+              </ScrollReveal>
 
-              <div className="relative">
-                <div className="absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-sky-400/60 via-sky-400/20 to-transparent sm:left-0 sm:right-0 sm:top-[19px] sm:h-px sm:w-auto" />
+              <ScrollReveal className="relative" direction="right">
+                <div className="reveal-line absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-sky-400/60 via-sky-400/20 to-transparent sm:left-0 sm:right-0 sm:top-[19px] sm:h-px sm:w-auto" />
                 <div className="grid gap-8 sm:grid-cols-4 sm:gap-5">
-                  {method.map(([number, title, description]) => (
-                    <div key={number} className="relative grid grid-cols-[2.5rem_1fr] gap-4 sm:block">
+                  {method.map(([number, title, description], index) => (
+                    <ScrollReveal key={number} delay={index * 120} distance={18}>
+                    <div className="relative grid grid-cols-[2.5rem_1fr] gap-4 sm:block">
                       <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-sky-400/40 bg-[#020713] font-mono text-[11px] text-sky-300 shadow-[0_0_30px_rgba(14,165,233,.12)]">
                         {number}
                       </div>
@@ -236,31 +247,33 @@ export default async function HomePage({
                         <p className="mt-2 text-sm leading-6 text-slate-500">{description}</p>
                       </div>
                     </div>
+                    </ScrollReveal>
                   ))}
                 </div>
-              </div>
+              </ScrollReveal>
             </div>
           </section>
 
           <section className="relative border-y border-white/[0.08] bg-[#050a17]">
             <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-28">
-              <div className="max-w-3xl">
+              <ScrollReveal className="max-w-3xl" glow>
                 <Eyebrow>{en ? 'Authority & community' : 'Autoridade & comunidade'}</Eyebrow>
                 <h2 className="mt-4 font-syne text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
                   {en ? 'Knowledge should circulate, not sit in a folder.' : 'Conhecimento bom precisa circular, não ficar numa pasta.'}
                 </h2>
-              </div>
+              </ScrollReveal>
 
               <div className="mt-14 grid divide-y divide-white/10 border-y border-white/10 md:grid-cols-4 md:divide-x md:divide-y-0">
-                <AuthorityMetric value="2" label={en ? 'Microsoft events' : 'eventos Microsoft'} detail={en ? 'Talks on AI, agents and enterprise architecture.' : 'Palestras sobre IA, agentes e arquitetura enterprise.'} />
-                <AuthorityMetric value="714" label={en ? 'newsletter subscribers' : 'assinantes na newsletter'} detail="Power Platform HUB" />
-                <AuthorityMetric value="17" label={en ? 'published articles' : 'artigos publicados'} detail={en ? 'Technical content and practical architecture.' : 'Conteúdo técnico e arquitetura aplicada.'} />
-                <AuthorityMetric value="8" label={en ? 'Microsoft certifications' : 'certificações Microsoft'} detail={en ? 'Power Platform, Azure and Data.' : 'Power Platform, Azure e Dados.'} />
+                <ScrollReveal delay={0} direction="up"><AuthorityMetric value="2" label={en ? 'Microsoft events' : 'eventos Microsoft'} detail={en ? 'Talks on AI, agents and enterprise architecture.' : 'Palestras sobre IA, agentes e arquitetura enterprise.'} /></ScrollReveal>
+                <ScrollReveal delay={100} direction="up"><AuthorityMetric value="714" label={en ? 'newsletter subscribers' : 'assinantes na newsletter'} detail="Power Platform HUB" /></ScrollReveal>
+                <ScrollReveal delay={200} direction="up"><AuthorityMetric value="17" label={en ? 'published articles' : 'artigos publicados'} detail={en ? 'Technical content and practical architecture.' : 'Conteúdo técnico e arquitetura aplicada.'} /></ScrollReveal>
+                <ScrollReveal delay={300} direction="up"><AuthorityMetric value="8" label={en ? 'Microsoft certifications' : 'certificações Microsoft'} detail={en ? 'Power Platform, Azure and Data.' : 'Power Platform, Azure e Dados.'} /></ScrollReveal>
               </div>
             </div>
           </section>
 
           <section id="content" className="relative mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:py-32 scroll-mt-28">
+            <ScrollReveal glow>
             <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
               <div>
                 <Eyebrow>{en ? 'Recent content' : 'Conteúdo recente'}</Eyebrow>
@@ -277,11 +290,12 @@ export default async function HomePage({
                 {en ? 'Open Power Platform HUB' : 'Abrir Power Platform HUB'} <Arrow />
               </a>
             </div>
+            </ScrollReveal>
 
             <div className="mt-14 grid gap-5 md:grid-cols-3">
               {recentContent.map((item, index) => (
+                <ScrollReveal key={item.slug} delay={index * 120} direction="up">
                 <a
-                  key={item.slug}
                   href={item.href}
                   target="_blank"
                   rel="noreferrer"
@@ -311,11 +325,13 @@ export default async function HomePage({
                     </span>
                   </div>
                 </a>
+                </ScrollReveal>
               ))}
             </div>
           </section>
 
           <section className="relative mx-auto max-w-7xl px-6 pb-28 sm:px-10 lg:pb-36">
+            <ScrollReveal direction="up" glow>
             <div className="relative overflow-hidden rounded-[2rem] border border-sky-400/20 bg-gradient-to-br from-sky-500/[0.12] via-white/[0.035] to-violet-500/[0.08] p-8 sm:p-12 lg:p-16">
               <div className="pointer-events-none absolute right-0 top-0 h-80 w-80 rounded-full bg-sky-400/10 blur-3xl" />
               <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
