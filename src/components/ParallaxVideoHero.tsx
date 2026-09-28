@@ -123,7 +123,7 @@ export default function ParallaxVideoHero({photoSrc}: Props) {
     {Icon: ShieldCheck, value: en ? '8 certifications' : '8 certificações', detail: 'Microsoft'},
     {Icon: Article, value: en ? '17 articles' : '17 artigos', detail: en ? 'published' : 'publicados'},
     {Icon: Users, value: '714', detail: en ? 'Power Platform HUB subscribers' : 'assinantes · Power Platform HUB'},
-    {Icon: Microphone, value: '2', detail: en ? 'Microsoft event talks' : 'palestras · eventos Microsoft'},
+    {Icon: Microphone, value: en ? '2 talks' : '2 palestras', detail: en ? 'Microsoft events' : 'eventos Microsoft'},
   ];
 
   return (
