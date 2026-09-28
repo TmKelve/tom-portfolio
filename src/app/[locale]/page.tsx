@@ -188,7 +188,6 @@ export default async function HomePage({
                 ))}
               </div>
             </div>
-            </ScrollReveal>
           </section>
 
           <section className="relative border-y border-white/[0.08] bg-white/[0.018]">
@@ -354,6 +353,7 @@ export default async function HomePage({
                 </Link>
               </div>
             </div>
+            </ScrollReveal>
           </section>
         </div>
       </FullBleed>
