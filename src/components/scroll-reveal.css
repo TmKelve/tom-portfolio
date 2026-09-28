@@ -12,7 +12,7 @@
 }
 
 .scroll-reveal[data-direction='left'] {
-  transform: translate3d(calc(var(--reveal-distance) * -1), 0, 0) scale(.992);
+  transform: translate3d(calc(0px - var(--reveal-distance)), 0, 0) scale(.992);
 }
 
 .scroll-reveal[data-direction='right'] {
@@ -49,14 +49,33 @@
   opacity: 1;
 }
 
+.reveal-line {
+  transform-origin: top center;
+}
+
 .scroll-reveal[data-visible='true'] .reveal-line {
-  animation: reveal-line-grow .9s cubic-bezier(.22,1,.36,1) both;
+  animation: reveal-line-grow-y .9s cubic-bezier(.22,1,.36,1) both;
   animation-delay: calc(var(--reveal-delay) + 120ms);
 }
 
-@keyframes reveal-line-grow {
+@keyframes reveal-line-grow-y {
+  from { transform: scaleY(0); opacity: .25; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes reveal-line-grow-x {
   from { transform: scaleX(0); opacity: .25; }
   to { transform: scaleX(1); opacity: 1; }
+}
+
+@media (min-width: 640px) {
+  .reveal-line {
+    transform-origin: left center;
+  }
+
+  .scroll-reveal[data-visible='true'] .reveal-line {
+    animation-name: reveal-line-grow-x;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
